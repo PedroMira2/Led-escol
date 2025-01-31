@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoEnergy Pro - Soluções Sustentáveis Inteligentes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+    <style>
+        :root {
+            --primary: #00c853;
+            --secondary: #009624;
+            --dark: #1a237e;
+            --light: #f5f5f5;
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* Navbar Animada */
+        .nav {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 2rem;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .nav.hidden {
+            transform: translateY(-100%);
+        }
+
+        .nav ul {
+            display: flex;
+            justify-content: flex-end;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav a {
+            color: var(--dark);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section Interativa */
+        .hero-pro {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: url('') no-repeat center center; /* Adicione sua imagem aqui */
+            background-size: cover; /* Faz a imagem cobrir todo o espaço */
+        }
+
+        .hero-canvas {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url("Backgourd2.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            opacity: 0.95;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: white;
+            padding: 2rem;
+            max-width: 800px;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .search-bar {
+            width: 100%;
+            max-width: 600px;
+            margin: 2rem auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1.5rem 2rem;
+            border: none;
+            border-radius: 50px;
+            background: rgba(255,255,255,0.9);
+            font-size: 1.1rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            transform: scale(1.02);
+        }
+
+        /* Filtros Avançados */
+        .filter-pro {
+            position: relative;
+            top: 80px;
+            background: white;
+            z-index: 999;
+            padding: 2rem 5%;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .filter-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .filter-card.active {
+            border-color: var(--primary);
+            background: rgba(0, 200, 83, 0.05);
+            transform: translateY(-5px);
+        }
+
+        /* Grid de Dicas Premium */
+        .tips-pro {
+            padding: 4rem 5%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            max-width: 1500px;
+            margin: 0 auto;
+        }
+
+        .tip-pro {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .tip-pro:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .tip-pro::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .tip-pro:hover::before {
+            opacity: 0.05;
+        }
+
+        .tip-image-pro {
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tip-image-pro img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .tip-pro:hover .tip-image-pro img {
+            transform: scale(1.05);
+        }
+
+        .tip-content-pro {
+            padding: 2rem;
+            position: relative;
+        }
+
+        .tip-meta-pro {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .eco-badge {
+            background: var(--gradient);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Dashboard Interativo */
+        .dashboard-pro {
+            padding: 4rem 5%;
+            background: var(--dark);
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 1rem 0;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Footer Premium */
+        .footer-pro {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 5%;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        /* Botão Carregar Mais */
+        .load-more-btn {
+            display: block;
+            margin: 2rem auto;
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .load-more-btn:hover {
+            background: var(--secondary);
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Animações Avançadas */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .floating-icon {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .image{
+            width: 90px;
+            height: 50px;
+           
+            position: fixed;
+            top: 0;
+           
+            z-index: 1000;
+           
+        }
+
+    </style>
+</head>
+<body>
+    <nav class="nav">
+       <img class="image" src="logo-removebg-preview.png" alt="">
+        <ul>
+
+
+            <li><a href="HOME.HTML">Home</a></li>
+            <li><a href="DICAS.HTML">Dicas</a></li>
+            <li><a href="HOME.HTML">Calculadora</a></li>
+            <li><a href="contactos.html">Contato</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero-pro">
+        <div class="hero-canvas"></div>
+        <div class="hero-content">
+            <h1>Sustentabilidade Inteligente para um Futuro Verde</h1>
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="Encontre soluções sustentáveis...">
+            </div>
+        </div>
+    </section>
+
+    <section class="filter-pro">
+        <div class="filter-grid">
+            <div class="filter-card active" data-category="residencial">
+                <h4>Residencial</h4>
+                <p>50+ soluções para residências</p>
+            </div>
+            <div class="filter-card" data-category="empresarial">
+                <h4>Empresarial</h4>
+                <p>Otimização industrial</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="tips-pro" id="tips-pro">
+        <!-- Dicas serão carregadas aqui via JavaScript -->
+    </section>
+
+    <button id="load-more-tips" class="load-more-btn">Carregar Mais Dicas</button>
+
+    <section class="dashboard-pro">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <i class="fas fa-bolt floating-icon"></i>
+                <div class="stat-value">35%</div>
+                <p>Redução média de consumo</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer-pro">
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h4>EcoEnergy Pro</h4>
+                <p>Soluções sustentáveis de última geração</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Dados das dicas
+        const tips = [
+            {
+                image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a",
+                title: "Sistema de Iluminação Autônoma",
+                description: "Tecnologia IoT para gestão energética inteligente",
+                co2: "200 kg CO²/ano",
+                rating: 4.8,
+                efficiency: "92%",
+                return: "18 meses",
+                category: "residencial"
+            },
+            {
+                image: "https://images.unsplash.com/photo-1521618755572-156ae0cdd74d",
+                title: "Painéis Solares Residenciais",
+                description: "Energia limpa e renovável para sua casa",
+                co2: "500 kg CO²/ano",
+                rating: 4.7,
+                efficiency: "95%",
+                return: "24 meses",
+                category: "residencial"
+            },
+            {
+                image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72",
+                title: "Otimização de Energia Industrial",
+                description: "Soluções avançadas para redução de custos energéticos",
+                co2: "1000 kg CO²/ano",
+                rating: 4.9,
+                efficiency: "98%",
+                return: "12 meses",
+                category: "empresarial"
+            },
+            // Adicione mais dicas aqui...
+        ];
+
+        // Variáveis globais
+        let visibleTips = 2;
+        const tipsContainer = document.getElementById('tips-pro');
+        const loadMoreButton = document.getElementById('load-more-tips');
+
+        // Função para renderizar as dicas
+        function renderTips(filteredTips) {
+            tipsContainer.innerHTML = '';
+            filteredTips.slice(0, visibleTips).forEach(tip => {
+                const tipHTML = `
+                    <article class="tip-pro">
+                        <div class="tip-image-pro">
+                            <img src="${tip.image}" alt="${tip.title}">
+                        </div>
+                        <div class="tip-content-pro">
+                            <div class="tip-meta-pro">
+                                <span class="eco-badge">
+                                    <i class="fas fa-leaf"></i>
+                                    ${tip.co2}
+                                </span>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i> ${tip.rating}
+                                </div>
+                            </div>
+                            <h3>${tip.title}</h3>
+                            <p>${tip.description}</p>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 85%"></div>
+                            </div>
+                            <div class="impact-stats">
+                                <span>Eficiência: ${tip.efficiency}</span>
+                                <span>Retorno: ${tip.return}</span>
+                            </div>
+                        </div>
+                    </article>
+                `;
+                tipsContainer.insertAdjacentHTML('beforeend', tipHTML);
+            });
+
+            // Esconder o botão se todas as dicas estiverem visíveis
+            if (visibleTips >= filteredTips.length) {
+                loadMoreButton.style.display = 'none';
+            } else {
+                loadMoreButton.style.display = 'block';
+            }
+        }
+
+        // Filtragem por categoria
+        document.querySelectorAll('.filter-card').forEach(card => {
+            card.addEventListener('click', () => {
+                document.querySelectorAll('.filter-card').forEach(c => c.classList.remove('active'));
+                card.classList.add('active');
+                const category = card.getAttribute('data-category');
+                const filteredTips = tips.filter(tip => tip.category === category);
+                visibleTips = 2; // Resetar o número de dicas visíveis
+                renderTips(filteredTips);
+            });
+        });
+
+        // Carregar mais dicas
+        loadMoreButton.addEventListener('click', () => {
+            visibleTips += 2;
+            const activeCategory = document.querySelector('.filter-card.active').getAttribute('data-category');
+            const filteredTips = tips.filter(tip => tip.category === activeCategory);
+            renderTips(filteredTips);
+        });
+
+        // Renderizar dicas iniciais
+        const initialCategory = document.querySelector('.filter-card.active').getAttribute('data-category');
+        const initialFilteredTips = tips.filter(tip => tip.category === initialCategory);
+        renderTips(initialFilteredTips);
+
+        // Controle de Navbar Avançado
+        let lastScroll = 0;
+        const navbar = document.querySelector('.nav');
+        
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > lastScroll && currentScroll > 100) {
+                navbar.classList.add('hidden');
+            } else {
+                navbar.classList.remove('hidden');
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Sistema de Busca Inteligente
+        const searchInput = document.querySelector('.search-input');
+        searchInput.addEventListener('input', debounce(searchHandler, 300));
+
+        function debounce(func, wait) {
+            let timeout;
+            return (...args) => {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), wait);
+            };
+        }
+
+        function searchHandler(e) {
+            // Implementar busca em tempo real
+        }
+
+        // Inicialização de Componentes
+        document.addEventListener('DOMContentLoaded', () => {
+            // Animação Inicial
+            gsap.from('.hero-content', {
+                duration: 1.5,
+                y: 100,
+                opacity: 0,
+                ease: "power4.out"
+            });
+
+            // Observador de Intersecção
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        gsap.to(entry.target, {
+                            duration: 0.8,
+                            opacity: 1,
+                            y: 0,
+                            ease: "back.out(1.7)"
+                        });
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.tip-pro').forEach(tip => {
+                tip.style.opacity = 0;
+                tip.style.transform = "translateY(50px)";
+                observer.observe(tip);
+            });
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</body>
+</html>
